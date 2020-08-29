@@ -1,0 +1,360 @@
+<html>
+<head>
+    <title> Hallie & Alex Super Store </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        body {
+            background-color: white;
+        }
+        * {
+          box-sizing: border-box;
+        }
+        
+        .flex-container {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: flex-start;
+        }
+        
+        .storeTitleBar {
+          padding: 10px;
+          font-size: 32px;
+          text-align: center;
+          background: #9731bd;
+        
+        }
+        
+        /*
+        *       Navbar Stuff
+        */
+        /* Sticky navbar - toggles between relative and fixed, depending on the scroll position. It is positioned relative until a given offset position is met in the viewport - then it "sticks" in place (like position:fixed). The sticky value is not supported in IE or Edge 15 and earlier versions. However, for these versions the navbar will inherit default position */
+        .navbar {
+          overflow: hidden;
+          background-color: #333;
+          position: -webkit-sticky;
+          top: 0;
+        }
+
+        /* Style the navigation bar links */
+        .navbar a {
+          float: left;
+          display: block;
+          color: white;
+          text-align: center;
+          padding: 14px 20px;
+          text-decoration: none;
+        }
+
+
+        /* Right-aligned link */
+        .navbar a.right {
+          float: right;
+        }
+
+        /* Active/current link */
+        .navbar a.active {
+          background-color: #666;
+          color: white;
+        }
+        
+        /* DropDown Cart Menu */
+        
+        .dropdown {
+          float: right;
+          overflow: hidden;
+        }
+
+        .dropdown .dropbtn {
+          font-size: 16px;  
+          border: none;
+          outline: none;
+          color: white;
+          padding: 14px 16px;
+          background-color: inherit;
+          font-family: inherit;
+          margin: 0;
+        }
+        
+        .dropdown-content {
+          display: none;
+          position: absolute;
+          background-color: #f9f9f9;
+          min-width: 160px;
+          box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+          z-index: 1;
+        }
+
+        .dropdown-content div {
+          float: none;
+          color: black;
+          padding: 12px 16px;
+          text-decoration: none;
+          display: block;
+        }
+        
+        .innerCart
+        {
+            display: inline-block;
+        }
+        .dropdown-content button {
+            float:right;
+            border: none;
+            line-height: normal;
+            background: none;
+        }
+        
+        /* Change color on hover */
+        .navbar a:hover, .dropdown:hover .dropbtn {
+          background-color: #ddd;
+          color: black;
+        }
+        
+        .dropdown-content div:hover {
+          background-color: #ddd;
+        }
+
+        .dropdown:hover .dropdown-content {
+          display: block;
+        }
+ 
+        /* 
+        *       Row-Column Stuff
+        */
+        
+         .column {
+          float: left;
+          width: 33.33%;
+          padding: 0 50px;
+        }
+
+        /* Remove extra left and right margins, due to padding in columns */
+        /*.row {margin: 0 -5px;}*/
+        
+        /* Clear floats after the columns */
+        .row:after {
+          content: "";
+          display: table;
+          clear: both;
+        }
+ 
+        /* Style the counter cards */
+        .card {
+          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0); /* this adds the "card" effect */
+          text-align: center;
+        }
+        
+        .itemImage {
+            margin-top: 10px
+        }
+        
+        /* Change color on hover */
+        .card:hover {
+          background-color: #f1f1f1;
+          color: black;
+        }
+
+        /* Responsive columns - one column layout (vertical) on small screens */
+        @media screen and (max-width: 600px) {
+          .column {
+            width: 100%;
+            display: block;
+            /*margin-bottom: 20px;*/
+          }
+        }
+        
+    </style>
+
+</head>
+<body>
+    <div class="storeTitleBar">
+        <h2>Hallie & Alex Super Store</h2>
+    </div>
+    <div class="navbar">
+        <a href="HASS.html">Home</a>
+        <a href="#" class="active">Food Stuff</a>
+        <a href="CheckOut.html" class="right">Checkout</a>
+        <div class="dropdown">
+          <button class="dropbtn">Cart
+      <i class="fa fa-caret-down"></i></button>
+          <div class="dropdown-content" id="cartUIList"> 
+            </div>
+        </div>
+        <a href="#" class="right">Locations</a>
+    </div>
+    
+    <div class="flex-container" id="theContainer">
+    </div>
+    
+    <script>
+    
+        
+        // classesHere
+        class shopItem {
+        constructor(id, title, price, category, linkIndex, imgElement, description, amt=1) {
+            this.id = id;
+            this.name = title;
+
+            this.pictureSrc = imgElement;
+            this.elemImg = document.getElementById(this.theimg);
+
+            this.category = category;
+            this.categoryIndex = linkIndex;
+            this.description = description;
+            this.price = price;
+            this.amount = amt;
+            }
+        }
+        
+        
+        ShopCategoryTitle = "Food Stuff";
+        ShopCategoryIndex = 3;
+        
+        ShopItemList = [
+            new shopItem(0, "Sleep Over Cookies", 25, ShopCategoryTitle, ShopCategoryIndex, "https://drive.google.com/thumbnail?id=1WPBrL30fUAkmmMRkwycWNTtsdp-h6A5b", "Sleep over made cookies! Made by Hallie and Alex themselves!"),
+            new shopItem(1, "Sewer Apple", 12, ShopCategoryTitle, ShopCategoryIndex, "https://drive.google.com/thumbnail?id=1XbJCnyvydIM0idy26Lt34hTpDAp4gaWa", "The best treat from the Montemalaga cafeteria. Tastes best with the Hot Fan Cold Fan product."),
+            new shopItem(2, "Letace", 8, ShopCategoryTitle, ShopCategoryIndex, "https://drive.google.com/thumbnail?id=1aF0avHXvPFq52nsWuxUlIxWcqBeTddal", "Although there are a variety of foods, there is none unlike the Alex-created Letace. The ultimate inedible-GMO, to make any salad stupendous.", null),
+            new shopItem(3, "Original Grape", 155, ShopCategoryTitle, ShopCategoryIndex, "https://drive.google.com/thumbnail?id=1p0M0zrDRYnlVrEanopFJuZAQEOPJrMR8", "HAVE A GRAPE THANKS GIVING"),
+            new shopItem(4, "Cocaine", "XXX", ShopCategoryTitle, ShopCategoryIndex, "https://drive.google.com/thumbnail?id=1TAM_-9oQggu8EDrP8Zp7XmEleEg0_LPf", "Go Ken."),
+            new shopItem(5, "H&A Water", 50, ShopCategoryTitle, ShopCategoryIndex, "https://drive.google.com/thumbnail?id=1eDHIy4FcfFVOwiPpUSihl5nArs-73um-", "H&A signature water. May be toxic."),
+            new shopItem(6, "H&A Air", 50, ShopCategoryTitle, ShopCategoryIndex, "https://drive.google.com/thumbnail?id=16XxD8ciDAk4Xnvck37iq7EiYhP7POzQD", "H%A signature air. Contains oxygen."),
+            new shopItem(7, "Austin Mahone Pancakes", 14, ShopCategoryTitle, ShopCategoryIndex, "https://drive.google.com/thumbnail?id=1RxVBASY2dMNwFOQ3y-Oo8v7ZOkWSNnPu", "Austin man keep doin' yo' thing, let these boys keep slippin' man. He's not into gymnastics, but he's into flippin' things.\nM - M - M - M - M - M - Yeah - Yeah."),
+            new shopItem(8, "Indeed Cat", 50, ShopCategoryTitle, ShopCategoryIndex, "https://drive.google.com/thumbnail?id=1RGq5QnexOeMD9ZwSK-k2wtLHLnJk233P", "Cassie-roll materials and instructions to make your own cassie-roll!\nWarning: may cause allergic reactions, even to those not allergic to anything; may cause interal bleeding or stomach pains; may cause choking and subsequent death; may cause severe death."),
+            new shopItem(9, "Bread Rock", 27, ShopCategoryTitle, ShopCategoryIndex, "https://drive.google.com/thumbnail?id=19gcAIlRteWXmKz2Y_tGGoka68A1GyN2l", "Wheat? Rye? Raisin? Nothing compares to the bread rock!\nBest served with sand milk and a napkin sandwich.\nThis rock is a platonic rock, and has never been mean."),
+            new shopItem(10, "Can O' Internet", 30, ShopCategoryTitle, ShopCategoryIndex, "https://drive.google.com/thumbnail?id=1B3a5LW169g6IS1j8zZh5Mr5dABsuk0Fd", "A healthy can of internet.\nDoes not contain an expiration date. Make sure your local physician is aware of your dietary choice before consuming."),
+            new shopItem(11, "Candy Gram", 3, ShopCategoryTitle, ShopCategoryIndex, "https://drive.google.com/thumbnail?id=1Rl6jO19jPnhZ9o3lAIWHFnv4AOoHba0l", "A wonderful gift if you lose the line game!\nThis product does not contain candy."),
+            new shopItem(12, "Dominos Pizza", 27, ShopCategoryTitle, ShopCategoryIndex, "https://drive.google.com/thumbnail?id=1Mb_IsPacJqCFI1AvgtFbkEoIdzIF5Lrl", "Dominos is now being delivered by the H&A Super Store! Order your favorite cheese thin-crust pizza from H&A today!"),
+            new shopItem(13, "Ginger Cats", 32, ShopCategoryTitle, ShopCategoryIndex, "https://drive.google.com/thumbnail?id=1fEe4h09cHLn-KiTnLET0zOiymC-P2-7c", "Expired Ginger Cats. Comes in different shapes, predecorated! Enjoy!"),
+            new shopItem(14, "Ginger Cats (2)", 36, ShopCategoryTitle, ShopCategoryIndex, "https://drive.google.com/thumbnail?id=1g42xN9hFnsi6E0YB12cm3OFPBoqxExeJ", "Ginger Cats, not expired for a limited time! Enjoy!")
+        ];
+
+
+        function chooseItem(btnNumber, el) {
+            console.log("clicked "+btnNumber);
+            
+            console.log("ShopItemList Value: "+selectedItemToArray(ShopItemList[btnNumber]).length);            
+            
+            saveSelectedItem(selectedItemToArray(ShopItemList[btnNumber]));
+            saveCart(CurrentCart);
+            
+            //sessionStorage.setItem('objectToPass', CurrentStorage);
+            window.location.href = "ViewItem.html";
+        }
+
+        
+        
+   function getSelectedItem() {
+        // return item from stored array and if not existing return undefined
+        if (sessionStorage.getItem('viewItem') == 'undefined' || sessionStorage.getItem('viewItem') == null) return undefined;
+        else {
+            itemArray = JSON.parse(sessionStorage.getItem('viewItem'));
+            return new shopItem(itemArray[0], itemArray[1], itemArray[2], itemArray[3], itemArray[4], itemArray[5], itemArray[6], itemArray[7]);
+        }
+    }
+    // remove an item from cart
+    function removeItem(index, el) {
+        // update the cart
+
+        if (CurrentCart == undefined) return;
+        deleteItem(index);
+        // update the UI
+        idName = "item_"+index/2;
+        console.log("idName: "+idName);
+        document.getElementById(idName).remove()
+    }
+        
+        
+   function getSelectedItem() {
+        // return item from stored array and if not existing return undefined
+        if (sessionStorage.getItem('viewItem') == 'undefined' || sessionStorage.getItem('viewItem') == null) return undefined;
+        else {
+            itemArray = JSON.parse(sessionStorage.getItem('viewItem'));
+            return new shopItem(itemArray[0], itemArray[1], itemArray[2], itemArray[3], itemArray[4], itemArray[5], itemArray[6], itemArray[7]);
+        }
+    }
+        
+    function saveSelectedItem(array){
+       sessionStorage.setItem("viewItem", JSON.stringify(array)); 
+    }
+       
+    function selectedItemToArray(item){
+        var temp = new Array(7);
+        
+        temp = [item.id, item.name, item.price, item.category, item.categoryIndex, item.pictureSrc, item.description, item.amount];
+        return temp;
+    }
+     
+    function getStoredCart(){
+        // return stored array and if not existing return undefined
+        console.log(sessionStorage.getItem('cart'))
+        if (sessionStorage.getItem('cart') == 'undefined') return undefined;
+        else return JSON.parse(sessionStorage.getItem('cart'));
+    }
+    
+
+    function saveCart(array){
+        // delete previous array
+        sessionStorage.removeItem('cart');
+        // add the new cart
+        sessionStorage.setItem("cart", JSON.stringify(array)); 
+    }
+
+    // deleting item
+    function deleteItem(index){
+        if (CurrentCart == undefined) return;
+        CurrentCart.splice(index,2); // remove from stored array (and associated quantity)     
+        saveCart(CurrentCart); // save it back into storage
+    }
+        
+        //init script
+        
+        // cart: [ITEM, AMOUONT, ITEM, AMOUNT] etc. the size will always be EVEN
+        
+        var CurrentCart = getStoredCart();
+        var CurrentItem = getSelectedItem();
+        console.log("Current Cart Get: "+ CurrentCart);
+        console.log("Current Item Get: "+ CurrentItem);
+        
+        if (CurrentCart != undefined) {
+            console.log("CurrentCart is not undefined")
+            // if there are items in the cart, we must add them to the dropdown menu
+            for (i=0; i < CurrentCart.length; i+=2) {
+                console.log("Adding to Cart List");
+                itemName = JSON.parse(CurrentCart[i])[1];
+                console.log(itemName);
+                idName = "item_"+i/2;
+                UICartList= document.getElementById("cartUIList");
+                UICartList.innerHTML += "<div id='"+idName+"'>" +
+                    "<p class='innerCart'>"+itemName+", "+CurrentCart[i+1]+"</p>" +
+                "<button class='innerCart' onClick='removeItem("+i+", this)'>X</button></div>";
+            }
+        }
+        if (CurrentItem == undefined) {
+             CurrentItem = null;
+        }
+        else {
+            sessionStorage.removeItem('viewItem');   
+        }
+        
+        // add the items in this category to be viewed
+        
+        var container = document.getElementById("theContainer");
+        tempsize = ShopItemList.length;
+        console.log(tempsize);
+        for (i=0; i < tempsize; i++) {
+            container.innerHTML += "<div class='column'>" +
+                "<div class='card'>" +
+                    "<div class='card' onclick='chooseItem(" + i +", this)'>" +
+                        "<h3>" + ShopItemList[i].name + "</h3>" +
+                        "<h3>$ " + ShopItemList[i].price + ".00</h3>" +
+                "</div></div></div>";
+        }
+        
+    
+    
+  
+    </script>
+    
+    
+</body>
+</html>

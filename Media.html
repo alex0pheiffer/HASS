@@ -1,0 +1,384 @@
+<html>
+<head>
+    <title> Hallie & Alex Super Store </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        body {
+            background-color: white;
+        }
+        * {
+          box-sizing: border-box;
+        }
+        
+        .flex-container {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: flex-start;
+        }
+        
+        .storeTitleBar {
+          padding: 10px;
+          font-size: 32px;
+          text-align: center;
+          background: #9731bd;
+        
+        }
+        
+        /*
+        *       Navbar Stuff
+        */
+        /* Sticky navbar - toggles between relative and fixed, depending on the scroll position. It is positioned relative until a given offset position is met in the viewport - then it "sticks" in place (like position:fixed). The sticky value is not supported in IE or Edge 15 and earlier versions. However, for these versions the navbar will inherit default position */
+        .navbar {
+          overflow: hidden;
+          background-color: #333;
+          position: -webkit-sticky;
+          top: 0;
+        }
+
+        /* Style the navigation bar links */
+        .navbar a {
+          float: left;
+          display: block;
+          color: white;
+          text-align: center;
+          padding: 14px 20px;
+          text-decoration: none;
+        }
+
+
+        /* Right-aligned link */
+        .navbar a.right {
+          float: right;
+        }
+
+        /* Active/current link */
+        .navbar a.active {
+          background-color: #666;
+          color: white;
+        }
+        
+        /* DropDown Cart Menu */
+        
+        .dropdown {
+          float: right;
+          overflow: hidden;
+        }
+
+        .dropdown .dropbtn {
+          font-size: 16px;  
+          border: none;
+          outline: none;
+          color: white;
+          padding: 14px 16px;
+          background-color: inherit;
+          font-family: inherit;
+          margin: 0;
+        }
+        
+        .dropdown-content {
+          display: none;
+          position: absolute;
+          background-color: #f9f9f9;
+          min-width: 160px;
+          box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+          z-index: 1;
+        }
+
+        .dropdown-content div {
+          float: none;
+          color: black;
+          padding: 12px 16px;
+          text-decoration: none;
+          display: block;
+        }
+        
+        .innerCart
+        {
+            display: inline-block;
+        }
+        .dropdown-content button {
+            float:right;
+            border: none;
+            line-height: normal;
+            background: none;
+        }
+        
+        /* Change color on hover */
+        .navbar a:hover, .dropdown:hover .dropbtn {
+          background-color: #ddd;
+          color: black;
+        }
+        
+        .dropdown-content div:hover {
+          background-color: #ddd;
+        }
+
+        .dropdown:hover .dropdown-content {
+          display: block;
+        }
+ 
+        /* 
+        *       Row-Column Stuff
+        */
+        
+         .column {
+          float: left;
+          width: 33.33%;
+          padding: 0 50px;
+        }
+
+        /* Remove extra left and right margins, due to padding in columns */
+        /*.row {margin: 0 -5px;}*/
+        
+        /* Clear floats after the columns */
+        .row:after {
+          content: "";
+          display: table;
+          clear: both;
+        }
+ 
+        /* Style the counter cards */
+        .card {
+          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0); /* this adds the "card" effect */
+          text-align: center;
+        }
+        
+        .itemImage {
+            margin-top: 10px
+        }
+        
+        /* Change color on hover */
+        .card:hover {
+          background-color: #f1f1f1;
+          color: black;
+        }
+
+        /* Responsive columns - one column layout (vertical) on small screens */
+        @media screen and (max-width: 600px) {
+          .column {
+            width: 100%;
+            display: block;
+            /*margin-bottom: 20px;*/
+          }
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="storeTitleBar">
+        <h2>Hallie & Alex Super Store</h2>
+    </div>
+    <div class="navbar">
+        <a href="HASS.html">Home</a>
+        <a href="#" class="active">Media</a>
+        <a href="CheckOut.html" class="right">Checkout</a>
+        <div class="dropdown">
+          <button class="dropbtn">Cart
+      <i class="fa fa-caret-down"></i></button>
+          <div class="dropdown-content" id="cartUIList">
+            <!--
+            <div id="item_0">
+                <p>item0</p>
+                <button onClick="removeItem(0, this)">X</button>
+            </div>
+            <div id="item_1">
+                <p>item1</p>
+                <button onClick="removeItem(1, this)">X</button>
+            </div>
+            <div id="item_2">
+                <p>item2</p>
+                <button onClick="removeItem(2, this)">X</button>
+            </div>
+            -->
+          </div>
+        </div>
+        <a href="#" class="right">Locations</a>
+    </div>
+    
+    <div class="flex-container" id="theContainer">
+        <!--
+        <div class="column">
+            <div class="card">
+                <div class="card" onclick="chooseItem(0, this)">
+                    <h3>L Socks</h3>
+                    <h3>Price</h3>
+                </div>
+            </div>
+        </div>
+        <div class="column">
+            <div class="card" onclick="chooseItem(1, this)">
+                <h3>Cheese Hat</h3>
+                <h3>Price</h3>
+            </div>
+        </div>
+        <div class="column" onclick="chooseItem(2, this)">
+            <div class="card">
+                <h3>TODO REMOVE</h3>
+                <p>Some text</p>
+                <p>Some text</p>
+            </div>
+        </div>
+        -->
+    </div>
+    
+    <script>
+    
+        
+        // classesHere
+    class shopItem {
+        constructor(id, title, price, category, linkIndex, imgElement, description, amt=1) {
+            this.id = id;
+            this.name = title;
+
+            this.pictureSrc = imgElement;
+            this.elemImg = document.getElementById(this.theimg);
+
+            this.category = category;
+            this.categoryIndex = linkIndex;
+            this.description = description;
+            this.price = price;
+            this.amount = amt;
+            }
+        }
+        
+        ShopCategoryTitle = "Media";
+        ShopCategoryIndex = 4;
+
+        ShopItemList = [
+            new shopItem(0, "Art of Cassie", 190, ShopCategoryTitle, ShopCategoryIndex, "https://drive.google.com/thumbnail?id=11SyNYi_K0r03H-wUmkG26iMGGwlLvzuU", "An art creation by the Cassie of the house of Pheiffer. One of her beginning pieces."),
+            new shopItem(1, "Chronic Taco Ringtone", 6, ShopCategoryTitle, ShopCategoryIndex, "https://drive.google.com/thumbnail?id=1DcIxBXcIX1uYM8Vad2-L1ZuWCGJ0yl3p", "The Wee Man's Chronic Tacos' theme song can now be your ring tone! Wee Man's Chronic Tacos, come buy them they're delicious!"),
+            new shopItem(2, "Moon Song", 8, ShopCategoryTitle, ShopCategoryIndex, "https://drive.google.com/thumbnail?id=1CeGEtFUmwKQwqpxCSl3Cbb2Y30yd0XDO", "On a vacation to Mars, one must wish to stop at the moon. This wonderful song sung by none other than the H&A Super Store co-owner, Hallie King, will have you swaying like she does in her music video!\nYay moon phases!"),
+            new shopItem(3, "Original Supermelon Poster", 240, ShopCategoryTitle, ShopCategoryIndex, "https://drive.google.com/thumbnail?id=1Nwjs9-VNdBLuT4gf-EZU-eAqvawdOMWm", "The Adventures of Supermelon!\nThis poster features the main character, Super Melon, with his signature cape.\nThis is an original poster created before even the animated series! A must have for all Super Melon collectors!"),
+            new shopItem(4, "AoS Action Frames", 800, ShopCategoryTitle, ShopCategoryIndex, "https://drive.google.com/thumbnail?id=1sNOvKrnf5BI0sLFBXuzKSEQRlOf7OKM9", "Adventures of Supermelon: limited edition action frames\nSuper Melon, original animated action of him throwing his watermelon-knives, drawn by Hallie King."),
+            new shopItem(5, "Homey Card", 10, ShopCategoryTitle, ShopCategoryIndex, "https://drive.google.com/thumbnail?id=1nKGSEHwJY4lnW4-Bu747jZEfE2Uzyn7l", "Congration."),
+            new shopItem(6, "AoS ep 103", 103, ShopCategoryTitle, ShopCategoryIndex, "https://drive.google.com/thumbnail?id=1VkyTLJu3mdMswGxAV2YbvoWqdXfNSXQQ", "Adventures of Supermelon: episode 103\nEnemy of Grapes\nWatch as the grapes' enemy, El Mano, causes the Green-Red Grape War to be put aside as they must band together with Super Melon and Cam in order to stop the Hand..!"),
+            new shopItem(7, "Stone Hercules Movies", 54, ShopCategoryTitle, ShopCategoryIndex, "https://drive.google.com/thumbnail?id=12LPbLQOsHDeeobznxL5WKDi9EpuvT9WP", "A bundle pack! Buy both Stone Hercules Movies, for a fraction of the cost! Don't miss this deal!"),
+            new shopItem(8, "Original Magic Script", 12, ShopCategoryTitle, ShopCategoryIndex, "https://drive.google.com/thumbnail?id=1qKlBhVa371VKpnXJlAY9z9w-t57r24Dl", "H&A present a magic show like none other!\nWritten by the 4th-grade children with the ingenious minds our employees all possess, you can now too preform a show just like them!"),
+            new shopItem(9, "The Animal", 13, ShopCategoryTitle, ShopCategoryIndex, "https://drive.google.com/thumbnail?id=11wZcrePxWf_z1Lbxl7YDadCvR0TnqupK", "Tired of your brother telling you the song is wrong? Is google not cooperating? Well, now you don't need to worry no more! You can buy The Animal with the right lyrics by Neon Trees, modified properly and effectively by H&A. Only available at the H&A Super Store."),            
+            new shopItem(10, "Snake Ball Ringtone", 16, ShopCategoryTitle, ShopCategoryIndex, "https://drive.google.com/thumbnail?id=1QKbQvP1rzraenCznMRp_dPC6PNBhgSBc", "Snake Balls! The Ball Game!\nWhatever you call it, this is an undeniably delightful tune you will love to hear when a stranger calls your phone.\nDun dun, dun dun duuun dun, dun dun duun dun duun dun dndndndnnn."),            
+            new shopItem(11, "Cat Heaven", 16, ShopCategoryTitle, ShopCategoryIndex, "https://drive.google.com/thumbnail?id=1I3DZetmKx4JW0d0jYAt6-6z9X4VXpeDN", "Don't you know? All cats go to heaven, where they sit on god's old-lady-like lap."),
+            new shopItem(12, "Turkey Day Song", 8, ShopCategoryTitle, ShopCategoryIndex, "https://drive.google.com/thumbnail?id=1QOLnKjISsmIIByf6iu3tHfxkyUfPXmMU", "The official song of Thanks Giving. All it needs are more grapes."),
+            new shopItem(13, "True Friends Postcard", 18, ShopCategoryTitle, ShopCategoryIndex, "https://drive.google.com/thumbnail?id=14TugRjOz9z-WVY4LGuJaZ30LfiCs5mHN", "A cute postcard with characters from a H&A original.")
+        ];
+
+
+        function chooseItem(btnNumber, el) {
+            console.log("clicked "+btnNumber);
+            
+            console.log("ShopItemList Value: "+selectedItemToArray(ShopItemList[btnNumber]).length);            
+            
+            saveSelectedItem(selectedItemToArray(ShopItemList[btnNumber]));
+            saveCart(CurrentCart);
+            
+            window.location.href = "ViewItem.html";
+        }
+
+        
+     // remove an item from cart
+    function removeItem(index, el) {
+        // update the cart
+
+        if (CurrentCart == undefined) return;
+        deleteItem(index);
+        // update the UI
+        idName = "item_"+index/2;
+        console.log("idName: "+idName);
+        document.getElementById(idName).remove()
+    }
+        
+        
+   function getSelectedItem() {
+        // return item from stored array and if not existing return undefined
+        if (sessionStorage.getItem('viewItem') == 'undefined' || sessionStorage.getItem('viewItem') == null) return undefined;
+        else {
+            itemArray = JSON.parse(sessionStorage.getItem('viewItem'));
+            return new shopItem(itemArray[0], itemArray[1], itemArray[2], itemArray[3], itemArray[4], itemArray[5], itemArray[6], itemArray[7]);
+        }
+    }
+        
+    function saveSelectedItem(array){
+       sessionStorage.setItem("viewItem", JSON.stringify(array)); 
+    }
+       
+    function selectedItemToArray(item){
+        var temp = new Array(7);
+        
+        temp = [item.id, item.name, item.price, item.category, item.categoryIndex, item.pictureSrc, item.description, item.amount];
+        return temp;
+    }
+     
+    function getStoredCart(){
+        // return stored array and if not existing return undefined
+        console.log(sessionStorage.getItem('cart'))
+        if (sessionStorage.getItem('cart') == 'undefined') return undefined;
+        else return JSON.parse(sessionStorage.getItem('cart'));
+    }
+    
+
+    function saveCart(array){
+        // delete previous array
+        sessionStorage.removeItem('cart');
+        // add the new cart
+        sessionStorage.setItem("cart", JSON.stringify(array)); 
+    }
+
+    // deleting item
+    function deleteItem(index){
+        if (CurrentCart == undefined) return;
+        CurrentCart.splice(index,2); // remove from stored array (and associated quantity)     
+        saveCart(CurrentCart); // save it back into storage
+    }
+        
+        //init script
+        
+        // cart: [ITEM, AMOUONT, ITEM, AMOUNT] etc. the size will always be EVEN
+        
+        var CurrentCart = getStoredCart();
+        var CurrentItem = getSelectedItem();
+        console.log("Current Cart Get: "+ CurrentCart);
+        console.log("Current Item Get: "+ CurrentItem);
+        
+        if (CurrentCart != undefined) {
+            console.log("CurrentCart is not undefined")
+            // if there are items in the cart, we must add them to the dropdown menu
+            for (i=0; i < CurrentCart.length; i+=2) {
+                console.log("Adding to Cart List");
+                itemName = JSON.parse(CurrentCart[i])[1];
+                console.log(itemName);
+                idName = "item_"+i/2;
+                UICartList= document.getElementById("cartUIList");
+                UICartList.innerHTML += "<div id='"+idName+"'>" +
+                    "<p class='innerCart'>"+itemName+", "+CurrentCart[i+1]+"</p>" +
+                "<button class='innerCart' onClick='removeItem("+i+", this)'>X</button></div>";
+            }
+        }
+        if (CurrentItem == undefined) {
+             CurrentItem = null;
+        }
+        else {
+            sessionStorage.removeItem('viewItem');   
+        }
+        
+        // add the items in this category to be viewed
+        
+        var container = document.getElementById("theContainer");
+        tempsize = ShopItemList.length;
+        console.log(tempsize);
+        for (i=0; i < tempsize; i++) {
+            container.innerHTML += "<div class='column'>" +
+                "<div class='card'>" +
+                    "<div class='card' onclick='chooseItem(" + i +", this)'>" +
+                        "<h3>" + ShopItemList[i].name + "</h3>" +
+                        "<h3>$ " + ShopItemList[i].price + ".00</h3>" +
+                "</div></div></div>";
+        }
+        
+    
+    
+  
+    </script>
+    
+    
+</body>
+</html>

@@ -1,0 +1,372 @@
+<html>
+<head>
+    <title> Hallie & Alex Super Store </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        body {
+            background-color: white;
+        }
+        * {
+          box-sizing: border-box;
+        }
+        
+        
+       .flex-container {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: flex-start;
+        }
+        
+        .storeTitleBar {
+          padding: 10px;
+          font-size: 32px;
+          text-align: center;
+          background: #9731bd;
+        
+        }
+        
+        /*
+        *       Navbar Stuff
+        */
+        /* Sticky navbar - toggles between relative and fixed, depending on the scroll position. It is positioned relative until a given offset position is met in the viewport - then it "sticks" in place (like position:fixed). The sticky value is not supported in IE or Edge 15 and earlier versions. However, for these versions the navbar will inherit default position */
+        .navbar {
+          overflow: hidden;
+          background-color: #333;
+          position: -webkit-sticky;
+          top: 0;
+        }
+
+        /* Style the navigation bar links */
+        .navbar a {
+          float: left;
+          display: block;
+          color: white;
+          text-align: center;
+          padding: 14px 20px;
+          text-decoration: none;
+        }
+
+
+        /* Right-aligned link */
+        .navbar a.right {
+          float: right;
+        }
+
+        /* Active/current link */
+        .navbar a.active {
+          background-color: #666;
+          color: white;
+        }
+        
+        /* DropDown Cart Menu */
+        
+        .dropdown {
+          float: right;
+          overflow: hidden;
+        }
+
+        .dropdown .dropbtn {
+          font-size: 16px;  
+          border: none;
+          outline: none;
+          color: white;
+          padding: 14px 16px;
+          background-color: inherit;
+          font-family: inherit;
+          margin: 0;
+        }
+        
+        .dropdown-content {
+          display: none;
+          position: absolute;
+          background-color: #f9f9f9;
+          min-width: 160px;
+          box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+          z-index: 1;
+        }
+
+        .dropdown-content div {
+          float: none;
+          color: black;
+          padding: 12px 16px;
+          text-decoration: none;
+          display: block;
+        }
+        
+        .innerCart
+        {
+            display: inline-block;
+        }
+        .dropdown-content button {
+            float:right;
+            border: none;
+            line-height: normal;
+            background: none;
+        }
+        
+        /* Change color on hover */
+        .navbar a:hover, .dropdown:hover .dropbtn {
+          background-color: #ddd;
+          color: black;
+        }
+        
+        .dropdown-content div:hover {
+          background-color: #ddd;
+        }
+
+        .dropdown:hover .dropdown-content {
+          display: block;
+        }
+ 
+        /* 
+        *       Row-Column Stuff
+        */
+        
+         .column {
+          float: left;
+          width: 33.33%;
+          padding: 0 50px;
+        }
+
+        /* Remove extra left and right margins, due to padding in columns */
+        /*.row {margin: 0 -5px;}*/
+        
+        /* Clear floats after the columns */
+        .row:after {
+          content: "";
+          display: table;
+          clear: both;
+        }
+ 
+        /* Style the counter cards */
+        .card {
+          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0); /* this adds the "card" effect */
+          text-align: center;
+        }
+        
+        .itemImage {
+            margin-top: 10px
+        }
+        
+        /* Change color on hover */
+        .card:hover {
+          background-color: #f1f1f1;
+          color: black;
+        }
+
+        /* Responsive columns - one column layout (vertical) on small screens */
+        @media screen and (max-width: 600px) {
+          .column {
+            width: 100%;
+            display: block;
+            /*margin-bottom: 20px;*/
+          }
+        }
+        
+    </style>    
+</head>
+<body>
+    <div class="storeTitleBar">
+        <h2>Hallie & Alex Super Store</h2>
+    </div>
+    <div class="navbar">
+        <a href="#" class="active">Home</a>
+        <a href="CheckOut.html" class="right">Checkout</a>
+        <div class="dropdown">
+          <button class="dropbtn">Cart
+      <i class="fa fa-caret-down"></i></button>
+          <div class="dropdown-content" id="cartUIList">
+          </div>
+        </div>
+        <a href="#" class="right">Locations</a>
+    </div>
+    
+    <div class="row">
+        <div class="column">
+            <div class="card">
+                <div class="card" onclick="chooseItem(0, this)">
+                <h3>Clothes</h3>
+                <p>Things You Wear</p>
+                <p>Clothes</p>
+            </div>
+            </div>
+        </div>
+        <div class="column">
+            <div class="card" onclick="chooseItem(1, this)">
+                <h3>Furniture</h3>
+                <p>Things You Use</p>
+                <p>Furniture</p>
+            </div>
+        </div>
+        <div class="column">
+            <div class="card" onclick="chooseItem(3, this)">
+                <h3>Food Stuff</h3>
+                <p>Things You Eat</p>
+                <p>Foood</p>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="column">
+            <div class="card"  onclick="chooseItem(4, this)">
+                <h3>Media</h3>
+                <p>Things You View</p>
+                <p>Media</p>
+            </div>
+        </div>
+        <div class="column">
+            <div class="card"  onclick="chooseItem(5, this)">
+                <h3>Science</h3>
+                <p>Things You Learn</p>
+                <p>Science!</p>
+            </div>
+        </div>
+        <div class="column" onclick="chooseItem(2, this)">
+            <div class="card">
+                <h3>Toys & Games</h3>
+                <p>Things You Play</p>
+                <p>Toys n' Games</p>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="column"  onclick="chooseItem(7, this)">
+            <div class="card">
+                <h3>Tickets</h3>
+                <p>Things You Buy</p>
+                <p>Tickets</p>
+            </div>
+        </div>
+        <div class="column">
+            <div class="card"  onclick="chooseItem(6, this)">
+                <h3>Connections</h3>
+                <p>People You Love</p>
+                <p>Connections</p>
+            </div>
+        </div>
+        <div class="column"  onclick="chooseItem(8, this)">
+            <div class="card">
+                <h3>Misc.</h3>
+                <p>Other Things</p>
+                <p>There's More!</p>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+    
+        
+        // classesHere
+    class shopItem {
+        constructor(id, title, price, category, linkIndex, imgElement, description, amt=1) {
+            this.id = id;
+            this.name = title;
+
+            this.pictureSrc = imgElement;
+            this.elemImg = document.getElementById(this.theimg);
+
+            this.category = category;
+            this.categoryIndex = linkIndex;
+            this.description = description;
+            this.price = price;
+            this.amount = amt;
+            }
+        }
+
+        ButtonList = [
+            "Clothes.html",                      //0
+            "Furniture.html",                    //1
+            "Toys.html",                         //2
+            "Food.html",                         //3
+            "Media.html",                        //4
+            "Science.html",                      //5
+            "Connections.html",                  //6
+            "Tickets.html",                      //7
+            "Misc.html"                      //8
+        ];
+        
+        function selectedItemToArray(item){
+        var temp = new Array(7);
+        
+        temp = [item.id, item.name, item.price, item.category, item.categoryIndex, item.pictureSrc, item.description, item.amount];
+        return temp;
+    }
+        
+      // remove an item from cart
+    function removeItem(index, el) {
+        // update the cart
+
+        if (CurrentCart == undefined) return;
+        deleteItem(index);
+        // update the UI
+        idName = "item_"+index/2;
+        console.log("idName: "+idName);
+        document.getElementById(idName).remove()
+    }
+        
+        
+   function getSelectedItem() {
+        // return item from stored array and if not existing return undefined
+        if (sessionStorage.getItem('viewItem') == 'undefined' || sessionStorage.getItem('viewItem') == null) return undefined;
+        else {
+            itemArray = JSON.parse(sessionStorage.getItem('viewItem'));
+            return new shopItem(itemArray[0], itemArray[1], itemArray[2], itemArray[3], itemArray[4], itemArray[5], itemArray[6], itemArray[7]);
+        }
+    }
+    function getStoredCart(){
+        // return stored array and if not existing return undefined
+        console.log(sessionStorage.getItem('cart'))
+        if (sessionStorage.getItem('cart') == 'undefined') return undefined;
+        else return JSON.parse(sessionStorage.getItem('cart'));
+    }
+    
+
+    function saveCart(array){
+        // delete previous array
+        sessionStorage.removeItem('cart');
+        // add the new cart
+        sessionStorage.setItem("cart", JSON.stringify(array)); 
+    }
+        
+        function chooseItem(btnNumber, el) {
+            window.location.href = ButtonList[btnNumber];
+        }
+        
+        
+        //init script
+        
+        // cart: [ITEM, AMOUONT, ITEM, AMOUNT] etc. the size will always be EVEN
+        
+        var CurrentCart = getStoredCart();
+        var CurrentItem = getSelectedItem();
+        console.log("Current Cart Get: "+ CurrentCart);
+        console.log("Current Item Get: "+ CurrentItem);
+        
+        if (CurrentCart != undefined) {
+            console.log("CurrentCart is not undefined")
+            // if there are items in the cart, we must add them to the dropdown menu
+            for (i=0; i < CurrentCart.length; i+=2) {
+                console.log("Adding to Cart List");
+                itemName = JSON.parse(CurrentCart[i])[1];
+                console.log(itemName);
+                idName = "item_"+i/2;
+                UICartList= document.getElementById("cartUIList");
+                UICartList.innerHTML += "<div id='"+idName+"'>" +
+                    "<p class='innerCart'>"+itemName+", "+CurrentCart[i+1]+"</p>" +
+                "<button class='innerCart' onClick='removeItem("+i+", this)'>X</button></div>";
+            }
+        }
+        if (CurrentItem == undefined) {
+             CurrentItem = null;
+        }
+        else {
+            sessionStorage.removeItem('viewItem');   
+        }
+        
+  
+    </script>
+    
+    
+</body>
+</html>
