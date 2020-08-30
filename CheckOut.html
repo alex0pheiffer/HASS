@@ -98,6 +98,13 @@
           color: white;
         }
         
+        
+        /* Right-aligned link */
+        .navbar img.right {
+          float: right;
+          max-height: 40px;
+        }
+        
         /* DropDown Cart Menu */
         
         .dropdown {
@@ -213,6 +220,20 @@
           margin-left: 80px;
           bottom: 100px;
         }
+        .bigfish
+        {
+            position: absolute;
+            left: 220px;
+            bottom:100px;
+        }
+        .fishspeak
+        {
+            position: absolute;
+            margin-left: 230;
+            bottom:290;
+            max-width: 240px;
+            word-wrap: break-word;
+        }
         
         /* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other */
         @media screen and (max-width: 800px) {
@@ -230,6 +251,7 @@
     </div>
     <div class="navbar">
         <a href="HASS.html">Home</a>
+        <img class="right" src="https://drive.google.com/thumbnail?id=14wJ96H0ysJklsPL-cpW3jx0zu9kENmvV"/>
         <a href="#" class="active">Checkout</a>
         <div class="dropdown">
           <button class="dropbtn">Cart
@@ -237,18 +259,24 @@
           <div class="dropdown-content" id="cartUIList">
           </div>
         </div>
-        <a href="#" class="right">Locations</a>
+        <a href="Locations.html" class="right">Locations</a>
     </div>
     
     <div>
       <div class="leftcolumn">
           <img src="https://drive.google.com/thumbnail?id=1LW1GDFjrjYys2OuYrA4c7vOnuxYH9-sO" height="300px" width="660px"/>
           <div>
-              <img class="fishes" src="https://drive.google.com/thumbnail?id=1MgrFus7E853-BrtTH4hKJJA0PL9WVgq-"/>
+              <div><img class="fishes" src="https://drive.google.com/thumbnail?id=1MgrFus7E853-BrtTH4hKJJA0PL9WVgq-"/>
               <img class="fish" z="1" src="https://drive.google.com/thumbnail?id=1LIER5p-QAEjp5CeKeIhAkiapD6OE3zo-"/>
+</div>
+              <img src="https://drive.google.com/thumbnail?id=17Ok0L_ANfFlofMVxKPLHbE5fJCQDK5hd" class="bigfish" height="200px" width="300px"/>
           </div>
+        <div>
+            
               <div id="tableObject" class="tinyfish" z="2"></div>
-      </div>
+              <div id="rocketText" class="fishspeak"></div>
+        </div>
+        </div>
       
       <div class="rightcolumn">
         <div class="bigcart" id="itemContent">
@@ -262,6 +290,64 @@
     
     <script>
     // 'globals' here 
+        
+    teamRocketItemSalesDefault = "Welcome to check out! We, TEAMROCKET will be processing your order.";
+    teamRocketItemSales = [
+        "This item has been wildly popular recently.",
+        "Meowth is too short for the table.",
+        "AHahahahaha,",
+        "Yes, yes. Good choice.",
+        "Why're we working here? (( There's a rare pokemon at this store ))",
+        "Good choice!",
+        "Are you sure you want to buy this?",
+        "Gaah! What on Earth are you thinking? Don't put that on the table!",
+        "Yes, yes. Welcome, welcome.",
+        "Are you sure you want that many? More is better..!",
+        "How about we give you a discount? Just kidding.",
+        "It's a shame it doesn't come in a different color.",
+        "My, my. Your taste is interesting.",
+        "I guess we'll help you check out.",
+        "*Beep, *Beep. Scanning items is so tiring.",
+        "Isn't this store WONDERFUL?",
+        "Oh, MORE stuff."
+    ];
+    teamRocketItemSalesPurchaseNull = [
+        "Insufferable fool thinks I can allow them to purchase nothing...",
+        "If you want to buy something, add it to your cart.",
+        "Well I don't have all day, find something to buy.",
+        "Do you enjoy pressing buttons? There's a product for that, you know.",
+        "If you were trying to purchase the H&A air, you have to add it to your cart first.",
+        "Yes, the button works. Does your brain?"
+    ];
+    teamRocketItemSalesPurchase = "Thank you for buying. We are processing your order, and it will be ready by the ";
+    days = [
+        "0th",
+        "-3rd",
+        "4.75453545th",
+        "3.1415926535th",
+        "31st",
+        "32nd",
+        "-1th",
+        "23rd"
+    ];
+    months = [
+      "January",
+        "Febuary",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+        "Septembuary",
+        "Depril",
+        "Novarch",
+        "Augember"
+    ];
         
     // classesHere
     class shopItem {
@@ -410,14 +496,15 @@
         imageBox.innerHTML = "<img class='tableItemImage' />";
             return;  
         } 
-        // highlight the selection
-        // unhighlight the previous selection
         // change the CurrentItem
         CurrentItem = BigCart[index/2];
         console.log("i:"+index+" "+CurrentItem);
         // change the displayed item
         setTableItem();
         // give information on the current item by Team Rocket
+        randInt = Math.random()*teamRocketItemSales.length;
+        randInt = Math.floor(randInt);
+        setRocketText(teamRocketItemSales[randInt]);
     }
         
     // deleting item
@@ -436,6 +523,48 @@
             runningTotal += BigCart[n].price*BigCart[n].amount;
         }
         setTotalBox(runningTotal);
+    }
+        
+    function setRocketText(text) {
+        imageBox = document.getElementById("rocketText");
+        imageBox.innerHTML =text;
+    }
+        
+    function purchase() {
+        // if the cart is empty
+        if (CurrentCart == undefined || BigCart == undefined || CurrentCart.length == 0){
+            randInt = Math.random()*teamRocketItemSalesPurchaseNull.length;
+        randInt = Math.floor(randInt);
+            setRocketText(teamRocketItemSalesPurchaseNull[randInt]);
+            return;   
+        }
+        // otherwise, clear the order
+        totalSize = BigCart.length;
+        for (i=0; i<totalSize; i++) {
+            CurrentCart.splice(0,2); // remove from stored array (and associated quantity)     
+            // you must also remove from the BigCart
+            BigCart.splice(0,1);
+        }
+        saveCart(CurrentCart); // save it back into storage
+        // update the bigcart's view
+        UICartList= document.getElementById("itemContent");
+        innerString = "<h2>Thank you for buying from H&A Super Store!</h2>";
+
+        UICartList.innerHTML = innerString;
+        
+        // change the current item to nothing
+        CurrentItem = undefined;
+        imageBox = document.getElementById("tableObject");
+        imageBox.innerHTML = "<img class='tableItemImage' />";
+        
+        // set the current price to 0
+        setTotalBox(0);
+        
+        //set the rocket text
+        textMonth = months[Math.floor(Math.random()*months.length) ];
+        textDay = days[ Math.floor(Math.random()*days.length) ];
+        textToSet = teamRocketItemSalesPurchase + textDay + " of "+textMonth+".";
+        setRocketText(textToSet);
     }
 
     // adding item
@@ -480,6 +609,7 @@
         setBigCart();
 
         setTableItem();
+        setRocketText(teamRocketItemSalesDefault);
     }
     if (CurrentItem == undefined) {
         setBigCart();

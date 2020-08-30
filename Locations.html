@@ -2,7 +2,7 @@
 <head>
     <title> Hallie & Alex Super Store </title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
         body {
             background-color: white;
@@ -11,7 +11,8 @@
           box-sizing: border-box;
         }
         
-        .flex-container {
+        
+       .flex-container {
           display: flex;
           flex-wrap: wrap;
           justify-content: flex-start;
@@ -48,18 +49,19 @@
 
 
         /* Right-aligned link */
-        .navbar a.right {
-          float: right;
-        }
-
-        /* Right-aligned link */
         .navbar img.right {
           float: right;
           max-height: 40px;
         }
         
+        /* Right-aligned link */
+        .navbar a.right {
+          float: right;
+        }
+
         /* Active/current link */
         .navbar a.active {
+            float: right;
           background-color: #666;
           color: white;
         }
@@ -169,64 +171,28 @@
           }
         }
         
-    </style>
+    </style>    
 </head>
 <body>
     <div class="storeTitleBar">
         <h2>Hallie & Alex Super Store</h2>
     </div>
     <div class="navbar">
-        <a href="HASS.html">Home</a>
-        <a href="#" class="active">Clothes</a>
+        <a href="HASS.html" >Home</a>
         <img class="right" src="https://drive.google.com/thumbnail?id=14wJ96H0ysJklsPL-cpW3jx0zu9kENmvV"/>
         <a href="CheckOut.html" class="right">Checkout</a>
         <div class="dropdown">
           <button class="dropbtn">Cart
       <i class="fa fa-caret-down"></i></button>
           <div class="dropdown-content" id="cartUIList">
-            <!--
-            <div id="item_0">
-                <p>item0</p>
-                <button onClick="removeItem(0, this)">X</button>
-            </div>
-            <div id="item_1">
-                <p>item1</p>
-                <button onClick="removeItem(1, this)">X</button>
-            </div>
-            <div id="item_2">
-                <p>item2</p>
-                <button onClick="removeItem(2, this)">X</button>
-            </div>
-            -->
           </div>
         </div>
-        <a href="Locations.html" class="right">Locations</a>
+        <a href="#" class="active">Locations</a>
     </div>
     
-    <div class="flex-container" id="theContainer">
-        <!--
-        <div class="column">
-            <div class="card">
-                <div class="card" onclick="chooseItem(0, this)">
-                    <h3>L Socks</h3>
-                    <h3>Price</h3>
-                </div>
-            </div>
-        </div>
-        <div class="column">
-            <div class="card" onclick="chooseItem(1, this)">
-                <h3>Cheese Hat</h3>
-                <h3>Price</h3>
-            </div>
-        </div>
-        <div class="column" onclick="chooseItem(2, this)">
-            <div class="card">
-                <h3>TODO REMOVE</h3>
-                <p>Some text</p>
-                <p>Some text</p>
-            </div>
-        </div>
-        -->
+    <div>
+        <h3>There are no locations near you...</h3>
+        <img class="right" height="100%" src="https://drive.google.com/thumbnail?id=1JJFU0zciu9uNOJ_dWzb7J09ewEsa9MjI"/>
     </div>
     
     <script>
@@ -248,30 +214,27 @@
             this.amount = amt;
             }
         }
-        
-        ShopCategoryTitle = "Clothes";
-        ShopCategoryIndex = 0;
 
-        ShopItemList = [
-            new shopItem(0, "L Socks", 60, ShopCategoryTitle, ShopCategoryIndex, "https://drive.google.com/thumbnail?id=1azGNxVwd5uxMe0NjboddvUIGFTMBX_kU", "Remember to cross me out!"),
-            new shopItem(1, "Cheese Hat", 27, ShopCategoryTitle, ShopCategoryIndex, "https://drive.google.com/thumbnail?id=1L00MJ_U65kqO-BbakKqKp-os-0mJECn8", "Wear me at recess to brag to your friends."),
-            new shopItem(2, "Miper!!!", 102, ShopCategoryTitle, ShopCategoryIndex, "https://drive.google.com/thumbnail?id=1tjsEFJVCD7EbNE3PL5JBbBUMfk9E1ON1", "Man diaper!!!\n For MEN ONLY!!!")
+        ButtonList = [
+            "Clothes.html",                      //0
+            "Furniture.html",                    //1
+            "Toys.html",                         //2
+            "Food.html",                         //3
+            "Media.html",                        //4
+            "Science.html",                      //5
+            "Connections.html",                  //6
+            "Tickets.html",                      //7
+            "Misc.html"                      //8
         ];
-
-
-        function chooseItem(btnNumber, el) {
-            console.log("clicked "+btnNumber);
-            
-            console.log("ShopItemList Value: "+selectedItemToArray(ShopItemList[btnNumber]).length);            
-            
-            saveSelectedItem(selectedItemToArray(ShopItemList[btnNumber]));
-            saveCart(CurrentCart);
-            
-            window.location.href = "ViewItem.html";
-        }
-
         
-     // remove an item from cart
+        function selectedItemToArray(item){
+        var temp = new Array(7);
+        
+        temp = [item.id, item.name, item.price, item.category, item.categoryIndex, item.pictureSrc, item.description, item.amount];
+        return temp;
+    }
+        
+      // remove an item from cart
     function removeItem(index, el) {
         // update the cart
 
@@ -292,18 +255,6 @@
             return new shopItem(itemArray[0], itemArray[1], itemArray[2], itemArray[3], itemArray[4], itemArray[5], itemArray[6], itemArray[7]);
         }
     }
-        
-    function saveSelectedItem(array){
-       sessionStorage.setItem("viewItem", JSON.stringify(array)); 
-    }
-       
-    function selectedItemToArray(item){
-        var temp = new Array(7);
-        
-        temp = [item.id, item.name, item.price, item.category, item.categoryIndex, item.pictureSrc, item.description, item.amount];
-        return temp;
-    }
-     
     function getStoredCart(){
         // return stored array and if not existing return undefined
         console.log(sessionStorage.getItem('cart'))
@@ -318,13 +269,11 @@
         // add the new cart
         sessionStorage.setItem("cart", JSON.stringify(array)); 
     }
-
-    // deleting item
-    function deleteItem(index){
-        if (CurrentCart == undefined) return;
-        CurrentCart.splice(index,2); // remove from stored array (and associated quantity)     
-        saveCart(CurrentCart); // save it back into storage
-    }
+        
+        function chooseItem(btnNumber, el) {
+            window.location.href = ButtonList[btnNumber];
+        }
+        
         
         //init script
         
@@ -356,22 +305,6 @@
             sessionStorage.removeItem('viewItem');   
         }
         
-        // add the items in this category to be viewed
-        
-        var container = document.getElementById("theContainer");
-        tempsize = ShopItemList.length;
-        console.log(tempsize);
-        for (i=0; i < tempsize; i++) {
-            container.innerHTML += "<div class='column'>" +
-                "<div class='card'>" +
-                    "<div class='card' onclick='chooseItem(" + i +", this)'>" +
-                        "<h3>" + ShopItemList[i].name + "</h3>" +
-                        "<h3>$ " + ShopItemList[i].price + ".00</h3>" +
-                "</div></div></div>";
-        }
-        
-    
-    
   
     </script>
     
